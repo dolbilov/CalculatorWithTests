@@ -3,13 +3,31 @@
         xmlns:vm="using:CalculatorBase.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="100"
+        Width="650" Height="100"
         x:Class="CalculatorBase.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="CalculatorBase">
+        Title="Calculator"
+        Padding="10"
+        HorizontalContentAlignment="Center"
+        CanResize="False">
 
     <Design.DataContext>
         <vm:MainWindowViewModel />
     </Design.DataContext>
+
+    <StackPanel Spacing="10" Orientation="Horizontal" VerticalAlignment="Center">
+        <TextBox Text="{Binding FirstArgument}" Width="150" />
+
+        <ComboBox Items="{Binding AvailableOperations}"
+                  SelectedItem="{Binding SelectedOperation}"
+                  Width="100"/>
+
+        <TextBox Text="{Binding SecondArgument}" Width="150" />
+
+        <TextBlock Text="=" VerticalAlignment="Center" FontSize="24"/>
+
+        <TextBox Text="{Binding Result}" IsReadOnly="True" Width="150" />
+    </StackPanel>
 </Window>
