@@ -14,7 +14,7 @@ public class Calculator : ICalculator
     public double Divide(double a, double b)
     {
         if (Math.Abs(b) < ICalculator.Epsilon)
-            throw new DivideByZeroException("|divider| can't be less then 10^6");
+            throw new DivideByZeroException(ICalculator.ErrorsMessage);
 
         return a / b;
     }
