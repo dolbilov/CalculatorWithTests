@@ -4,13 +4,8 @@ namespace Tests;
 
 public class CalculatorTests
 {
-    private readonly Calculator _calculator;
-    
-    public CalculatorTests()
-    {
-        _calculator = new Calculator();
-    }
-    
+    private readonly Calculator _calculator = new();
+
     [Theory]
     [InlineData(1, 2, 3)]
     [InlineData(1, -2, -1)]
