@@ -17,17 +17,32 @@
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <StackPanel Spacing="10" Orientation="Horizontal" VerticalAlignment="Center">
-        <TextBox Text="{Binding FirstArgument}" Width="150" />
+    <StackPanel Spacing="10"
+                Orientation="Horizontal"
+                VerticalAlignment="Center">
+
+        <NumericUpDown Value="{Binding FirstArgument}"
+                       Width="150"
+                       AllowSpin="False"
+                       ShowButtonSpinner="False" />
 
         <ComboBox Items="{Binding AvailableOperations}"
                   SelectedItem="{Binding SelectedOperation}"
-                  Width="100"/>
+                  Width="100" />
 
-        <TextBox Text="{Binding SecondArgument}" Width="150" />
+        <NumericUpDown Value="{Binding SecondArgument}"
+                       Width="150"
+                       AllowSpin="False"
+                       ShowButtonSpinner="False" />
 
-        <TextBlock Text="=" VerticalAlignment="Center" FontSize="24"/>
+        <TextBlock Text="="
+                   VerticalAlignment="Center"
+                   FontSize="24" />
 
-        <TextBox Text="{Binding Result}" IsReadOnly="True" Width="150" />
+        <NumericUpDown Value="{Binding Result}"
+                       Width="150"
+                       AllowSpin="False"
+                       ShowButtonSpinner="False"
+                       IsReadOnly="True" />
     </StackPanel>
 </Window>
