@@ -78,7 +78,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
         if (string.IsNullOrEmpty(propertyName))
             return _validationErrors.Values.SelectMany(static errors => errors);
 
-        return _validationErrors.TryGetValue(propertyName!, out var value)
+        return _validationErrors.TryGetValue(propertyName, out var value)
             ? value
             : Enumerable.Empty<ValidationResult>();
     }
@@ -132,7 +132,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
     {
         ClearErrors(nameof(SecondArgument));
 
-        if (SecondArgument < ICalculator.Epsilon)
+        if (Math.Abs(SecondArgument) < ICalculator.Epsilon)
         {
             AddError(nameof(SecondArgument), ICalculator.ErrorsMessage);
         }
