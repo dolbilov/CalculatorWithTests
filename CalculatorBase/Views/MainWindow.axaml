@@ -39,10 +39,8 @@
                    VerticalAlignment="Center"
                    FontSize="24" />
 
-        <NumericUpDown Value="{Binding Result}"
+        <TextBox Text="{Binding Result}"
                        Width="150"
-                       AllowSpin="False"
-                       ShowButtonSpinner="False"
                        IsReadOnly="True" />
     </StackPanel>
 </Window>
