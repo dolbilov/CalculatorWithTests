@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using CalculatorBase.Interfaces;
 using CalculatorBase.Models;
 using ReactiveUI;
 
@@ -20,7 +19,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
     private double _firstArgument;
     private double _secondArgument;
     private Operation _selectedOperation;
-    private string? _result;
+    private double? _result;
 
     #endregion
 
@@ -63,7 +62,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
         set => this.RaiseAndSetIfChanged(ref _selectedOperation, value);
     }
 
-    public string? Result
+    public double? Result
     {
         get => _result;
         set => this.RaiseAndSetIfChanged(ref _result, value);
@@ -95,14 +94,14 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
         if (HasErrors)
             return;
 
-        Result = (SelectedOperation switch
+        Result = SelectedOperation switch
         {
             Operation.Add => _calculator.Add(FirstArgument, SecondArgument),
             Operation.Subtract => _calculator.Subtract(FirstArgument, SecondArgument),
             Operation.Multiply => _calculator.Multiply(FirstArgument, SecondArgument),
             Operation.Divide => _calculator.Divide(FirstArgument, SecondArgument),
             _ => throw new NotSupportedException($"Command {SelectedOperation} does not support.")
-        }).ToString("0.####");
+        };
     }
 
     private void AddError(string propertyName, string errorMessage)
@@ -133,8 +132,14 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
     {
         ClearErrors(nameof(SecondArgument));
 
-        if (Math.Abs(SecondArgument) < ICalculator.Epsilon)
-            AddError(nameof(SecondArgument), ICalculator.InvalidDividerValueMessage);
+        try
+        {
+            _ = _calculator.Divide(FirstArgument, SecondArgument);
+        }
+        catch (DivideByZeroException e)
+        {
+            AddError(nameof(SecondArgument), e.Message);
+        }
     }
 
     #endregion
