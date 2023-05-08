@@ -1,4 +1,3 @@
-using CalculatorBase.Interfaces;
 using CalculatorBase.Models;
 
 namespace Tests;
@@ -23,7 +22,7 @@ public class CalculatorTests
 
         result.Should().Be(expected);
     }
-    
+
     [Theory]
     [InlineData(1, 2, -1)]
     [InlineData(1, -2, 3)]
@@ -40,7 +39,7 @@ public class CalculatorTests
 
         result.Should().Be(expected);
     }
-    
+
     [Theory]
     [InlineData(1, 2, 2)]
     [InlineData(1, -2, -2)]
@@ -57,7 +56,7 @@ public class CalculatorTests
 
         result.Should().Be(expected);
     }
-    
+
     [Theory]
     [InlineData(1, 2, 0.5)]
     [InlineData(2, 1, 2)]
@@ -76,10 +75,10 @@ public class CalculatorTests
     [InlineData(1, 0)]
     [InlineData(1.5, 0)]
     [InlineData(0, 0)]
-    [InlineData(1, ICalculator.Epsilon / 10)]
-    [InlineData(1.5, ICalculator.Epsilon / 10)]
+    [InlineData(1, Calculator.Epsilon / 10)]
+    [InlineData(1.5, Calculator.Epsilon / 10)]
     [InlineData(-1, 0)]
-    [InlineData(-1, ICalculator.Epsilon / 10)]
+    [InlineData(-1, Calculator.Epsilon / 10)]
     public void Divide_ShouldThrowException_WhenDividerLessThanEpsilon(double a, double b)
     {
         var act = () => _calculator.Divide(a, b);
