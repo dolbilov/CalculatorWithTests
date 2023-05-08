@@ -14,7 +14,7 @@ public class Calculator : ICalculator
     public double Divide(double a, double b)
     {
         if (Math.Abs(b) < ICalculator.Epsilon)
-            throw new DivideByZeroException(ICalculator.ErrorsMessage);
+            throw new DivideByZeroException(ICalculator.InvalidDividerValueMessage);
 
         return a / b;
     }

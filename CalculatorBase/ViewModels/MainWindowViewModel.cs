@@ -16,6 +16,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
 
     private readonly Dictionary<string, List<ValidationResult>> _validationErrors = new();
     private readonly Calculator _calculator = new();
+
     private double _firstArgument;
     private double _secondArgument;
     private Operation _selectedOperation;
@@ -41,7 +42,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
     #region Properties
 
     public static IEnumerable AvailableOperations => Enum.GetValues<Operation>();
-    
+
     public bool HasErrors => _validationErrors.Count > 0;
 
     public double FirstArgument
@@ -82,12 +83,12 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
             ? value
             : Enumerable.Empty<ValidationResult>();
     }
-    
+
     private void DoCalculations()
     {
         ClearErrors();
         Result = null;
-        
+
         if (SelectedOperation == Operation.Divide)
             ValidateDivider();
 
@@ -103,7 +104,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
             _ => throw new NotSupportedException($"Command {SelectedOperation} does not support.")
         }).ToString("0.####");
     }
-    
+
     private void AddError(string propertyName, string errorMessage)
     {
         ArgumentException.ThrowIfNullOrEmpty(propertyName);
@@ -133,10 +134,7 @@ public class MainWindowViewModel : ViewModelBase, INotifyDataErrorInfo
         ClearErrors(nameof(SecondArgument));
 
         if (Math.Abs(SecondArgument) < ICalculator.Epsilon)
-        {
-            AddError(nameof(SecondArgument), ICalculator.ErrorsMessage);
-        }
-            
+            AddError(nameof(SecondArgument), ICalculator.InvalidDividerValueMessage);
     }
 
     #endregion

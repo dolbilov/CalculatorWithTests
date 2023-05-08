@@ -48,7 +48,7 @@ public class MainWindowViewModelTests
         _vm.SecondArgument = ICalculator.Epsilon / 10;
         _vm.SelectedOperation = Operation.Divide;
 
-        (_vm.GetErrors(nameof(_vm.Result)) as ICollection)?.Should().NotBe(0);
+        (_vm.GetErrors(nameof(_vm.Result)) as ICollection)?.Count.Should().NotBe(0);
     }
 
     [Theory]
